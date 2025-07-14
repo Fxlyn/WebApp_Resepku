@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Resep</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .logo-img { 
+            width: 40px; 
+            height: 40px; 
+            margin-right: 10px; 
+        }
+        .recipe-header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+        .content-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .btn-modern {
+            border-radius: 25px;
+            padding: 0.5rem 1.5rem;
+            font-weight: 500;
+        }
+        .btn-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+        }
+        .btn-gradient:hover {
+            background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+            color: white;
+        }
+        .checklist-item {
+            padding: 0.75rem;
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        .checklist-item:hover {
+            background-color: #f8f9fa;
+        }
+        .checklist-item.checked {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+        .form-check-input:checked {
+            background-color: #667eea;
+            border-color: #667eea;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <!-- Header -->
+    <div class="header">
+        <div class="container">
+            <div class="d-flex align-items-center">
+                <a href="/" class="d-flex align-items-center text-decoration-none text-white">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1046/1046857.png" alt="Logo" class="logo-img">
+                    <h4 class="mb-0">ResepKu</h4>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recipe Header -->
+    <div class="recipe-header">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1 class="display-6 fw-bold mb-2">{{ resep['nama'] }}</h1>
+                    <p class="lead mb-0">{{ resep['deskripsi'] }}</p>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    {% if resep['sudah_dicoba'] %}
+                    <span class="badge bg-success fs-6 px-3 py-2">
+                        <i class="bi bi-check-circle me-2"></i>Sudah Dicoba
+                    </span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row mb-4">
+            <div class="col-lg-6 mb-4">
+                <div class="card content-card h-100">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title mb-0">
+                            <i class="bi bi-list-check me-2"></i>Daftar Bahan & Belanja
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST">
+                            {% for bahan in bahan_list %}
+                            <div class="checklist-item {% if bahan in checklist %}checked{% endif %}">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="checklist" 
+                                           value="{{ bahan }}" id="bahan{{ loop.index }}" 
+                                           {% if bahan in checklist %}checked{% endif %}>
+                                    <label class="form-check-label fw-medium" for="bahan{{ loop.index }}">
+                                        {{ bahan }}
+                                    </label>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            <button type="submit" class="btn btn-gradient btn-modern w-100 mt-3">
+                                <i class="bi bi-check2-square me-2"></i>Update Checklist Belanja
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6 mb-4">
+                <div class="card content-card h-100">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="card-title mb-0">
+                            <i class="bi bi-list-ol me-2"></i>Langkah-langkah Memasak
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <ol class="list-group list-group-numbered">
+                            {% for langkah in resep['langkah'].split('\n') %}
+                            <li class="list-group-item border-0 bg-transparent">
+                                {{ langkah }}
+                            </li>
+                            {% endfor %}
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="d-flex justify-content-between align-items-center">
+            <a href="/" class="btn btn-outline-secondary btn-modern">
+                <i class="bi bi-arrow-left me-2"></i>Kembali ke Beranda
+            </a>
+            <div class="d-flex gap-2">
+                <form method="POST" action="/resep/{{ resep['id'] }}/coba" class="d-inline">
+                    <button type="submit" class="btn btn-success btn-modern" 
+                            {% if resep['sudah_dicoba'] %}disabled{% endif %}>
+                        <i class="bi bi-check-circle me-2"></i>
+                        {% if resep['sudah_dicoba'] %}Sudah Dicoba{% else %}Tandai Sudah Dicoba{% endif %}
+                    </button>
+                </form>
+                <a href="/resep/{{ resep['id'] }}/edit" class="btn btn-warning btn-modern">
+                    <i class="bi bi-pencil me-2"></i>Edit
+                </a>
+                <form method="POST" action="/resep/{{ resep['id'] }}/hapus" class="d-inline" 
+                      onsubmit="return confirm('Yakin ingin menghapus resep ini?');">
+                    <button type="submit" class="btn btn-danger btn-modern">
+                        <i class="bi bi-trash me-2"></i>Hapus
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

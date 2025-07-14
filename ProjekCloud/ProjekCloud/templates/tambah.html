@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Resep Baru</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .logo-img { 
+            width: 40px; 
+            height: 40px; 
+            margin-right: 10px; 
+        }
+        .form-card {
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .btn-modern {
+            border-radius: 25px;
+            padding: 0.5rem 1.5rem;
+            font-weight: 500;
+        }
+        .btn-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+        }
+        .btn-gradient:hover {
+            background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+            color: white;
+        }
+        .form-control, .form-label {
+            border-radius: 10px;
+        }
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <!-- Header -->
+    <div class="header">
+        <div class="container">
+            <div class="d-flex align-items-center">
+                <a href="/" class="d-flex align-items-center text-decoration-none text-white">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1046/1046857.png" alt="Logo" class="logo-img">
+                    <h4 class="mb-0">ResepKu</h4>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="text-center mb-4">
+                    <h2 class="fw-bold">
+                        <i class="bi bi-plus-circle text-primary me-2"></i>
+                        Tambah Resep Baru
+                    </h2>
+                    <p class="text-muted">Isi detail resep favoritmu di bawah ini</p>
+                </div>
+                
+                <form method="POST" class="card form-card p-4">
+                    <div class="mb-4">
+                        <label for="nama" class="form-label fw-bold">
+                            <i class="bi bi-card-text me-2"></i>Nama Resep
+                        </label>
+                        <input type="text" class="form-control form-control-lg" id="nama" name="nama" required>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="deskripsi" class="form-label fw-bold">
+                            <i class="bi bi-info-circle me-2"></i>Deskripsi
+                        </label>
+                        <input type="text" class="form-control" id="deskripsi" name="deskripsi" placeholder="Deskripsi singkat tentang resep ini">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="bahan" class="form-label fw-bold">
+                            <i class="bi bi-list-check me-2"></i>Daftar Bahan
+                        </label>
+                        <textarea class="form-control" id="bahan" name="bahan" rows="6" required 
+                                  placeholder="Masukkan daftar bahan, satu bahan per baris&#10;Contoh:&#10;- 2 siung bawang putih&#10;- 1 sendok makan garam&#10;- 500g daging ayam"></textarea>
+                        <div class="form-text">
+                            <i class="bi bi-info-circle me-1"></i>
+                            Masukkan satu bahan per baris untuk hasil yang rapi
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="langkah" class="form-label fw-bold">
+                            <i class="bi bi-list-ol me-2"></i>Langkah-langkah Memasak
+                        </label>
+                        <textarea class="form-control" id="langkah" name="langkah" rows="6" required
+                                  placeholder="Masukkan langkah-langkah memasak, satu langkah per baris&#10;Contoh:&#10;1. Panaskan minyak dalam wajan&#10;2. Tumis bawang putih hingga harum&#10;3. Masukkan daging ayam"></textarea>
+                        <div class="form-text">
+                            <i class="bi bi-info-circle me-1"></i>
+                            Masukkan satu langkah per baris untuk hasil yang rapi
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-between">
+                        <a href="/" class="btn btn-outline-secondary btn-modern">
+                            <i class="bi bi-arrow-left me-2"></i>Kembali
+                        </a>
+                        <button type="submit" class="btn btn-gradient btn-modern">
+                            <i class="bi bi-check-circle me-2"></i>Simpan Resep
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

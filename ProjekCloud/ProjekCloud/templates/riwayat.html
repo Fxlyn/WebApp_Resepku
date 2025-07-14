@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riwayat Masakan Dicoba</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .logo-img { 
+            width: 40px; 
+            height: 40px; 
+            margin-right: 10px; 
+        }
+        .hero-section {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+        .recipe-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+        .recipe-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        .recipe-image {
+            height: 200px;
+            background: linear-gradient(45deg, #a8edea 0%, #fed6e3 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+        .btn-modern {
+            border-radius: 25px;
+            padding: 0.5rem 1.5rem;
+            font-weight: 500;
+        }
+        .btn-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: white;
+        }
+        .btn-gradient:hover {
+            background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <!-- Header -->
+    <div class="header">
+        <div class="container">
+            <div class="d-flex align-items-center">
+                <a href="/" class="d-flex align-items-center text-decoration-none text-white">
+                    <img src="https://cdn-icons-png.flaticon.com/512/1046/1046857.png" alt="Logo" class="logo-img">
+                    <h4 class="mb-0">ResepKu</h4>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="container text-center">
+            <h1 class="display-5 fw-bold mb-3">
+                <i class="bi bi-clock-history me-3"></i>
+                Riwayat Masakan Dicoba
+            </h1>
+            <p class="lead mb-4">Lihat kembali masakan-masakan yang sudah pernah kamu coba!</p>
+            <a href="/" class="btn btn-light btn-modern">
+                <i class="bi bi-arrow-left me-2"></i>Kembali ke Beranda
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            {% for resep in resep_list %}
+            <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card recipe-card h-100">
+                    <div class="recipe-image">
+                        <i class="bi bi-check-circle-fill"></i>
+                    </div>
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title fw-bold">{{ resep['nama'] }}</h5>
+                        <p class="card-text text-muted flex-grow-1">{{ resep['deskripsi']|truncate(80) }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <a href="/resep/{{ resep['id'] }}" class="btn btn-gradient btn-modern">
+                                <i class="bi bi-eye me-2"></i>Lihat Resep
+                            </a>
+                            <span class="badge bg-success">
+                                <i class="bi bi-check-circle me-1"></i>Sudah Dicoba
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <div class="col-12 text-center py-5">
+                <div class="text-muted">
+                    <i class="bi bi-emoji-frown display-1"></i>
+                    <h4 class="mt-3">Belum ada masakan yang dicoba</h4>
+                    <p>Yuk, coba masak resep favoritmu dan tandai sebagai sudah dicoba!</p>
+                    <a href="/" class="btn btn-gradient btn-modern">
+                        <i class="bi bi-house me-2"></i>Lihat Semua Resep
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html> 
